@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../league-mono-2.2"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "TEXT TO SPEECH"
+	}
+}

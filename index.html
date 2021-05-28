@@ -1,0 +1,348 @@
+<html>
+<head>
+	<script src="libraries/p5.min.js"></script>
+	<script src="libraries/p5.speech.js"></script>
+	<script src="libraries/p5.speech.js"></script>
+	<script src="draggable.js"></script>
+	<tag autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+
+	<link rel="stylesheet" href="style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<style>
+
+
+		.slidecontainer {
+  width: 100%;
+}
+
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 10%;
+  height: 1.5px;
+background: black;  outline: none;
+
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background: black;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+@font-face {
+  src: url('Antarctica Beta Trial-VF.ttf');
+  font-family:'ant';
+  font-style: normal;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  font-weight: 100 950;
+}
+
+p {
+  display: inline-block;
+  font-size: 32px;
+  transform-origin: 0 0;
+  font-family: "ant";
+  font-stretch: 200%;
+  font-weight: 200;
+
+
+}
+span {
+  font-size: 16px;
+  vertical-align: top;
+}
+	</style>
+
+	<script>
+	var myVoice = new p5.Speech(); // new P5.Speech object
+
+	var menuLoaded = 0;
+	var label, input, checkbox, speakbutton, vslider, rslider, pslider; // UI
+	var msg;		// The text that moves
+		// y position of the flying text
+var keys;		// The text that responds to key events
+var canvas;	// the canvas itself
+var circleColor = 0;	// color of the circle
+var button;	// the button element
+var input;  // the input box
+var typeTexts;  // the text that reflects the content inside the input box
+var paragraph;
+var x;
+let myDiv;
+let myDiv2;
+let myDiv3;
+let myDiv4;
+let myDiv5;
+let sel;
+let label3;
+let variable;
+let variable2;
+
+
+	function setup()
+	{			
+		canvas=createCanvas(windowWidth, windowHeight);
+		canvas.style('z-index','0');
+
+		// input dialog:
+		input = createInput("type something here!");
+
+		input.style('z-index','7');
+		input.attribute("spellcheck", "false");
+		input.style('border','none');
+		// input.style('background','transparent');
+		input.style('outline','none');
+		input.style('color','black')
+
+		// 		  input.style('font-family', 'ant');
+		//   input.style('font-stretch', '100%');
+		//   input.style('font-weight', '100');
+
+
+
+		colour1= (input.value());
+		textAlign(CENTER);
+  background(255);
+
+  
+
+
+
+		// input.style("width", 400);
+
+		// checkbox:
+
+		// button:
+		speakbutton = createButton('&#9658');
+		speakbutton.style('z-index','5');
+		speakbutton.style('color','white');
+		speakbutton.style('background-color','black');
+		speakbutton.style('width','50');
+		speakbutton.style('height','35');
+		speakbutton.style('font-size','20');
+
+		speakbutton.style('border','none');
+		speakbutton.style('outline','none');
+
+
+
+
+  		speakbutton.position(20, 168);
+  		speakbutton.mousePressed(doSpeak);
+
+
+  		// sliders:
+  		vslider = createSlider(1., 200., 100.);
+		  vslider.addClass('slider');
+
+  		vslider.position(100, 60);
+  		vslider.mouseReleased(setVolume);
+		  vslider.style('z-index','5');
+
+  		rslider = createSlider(1., 200., 100.);
+  		rslider.position(100, 95);
+  		rslider.mouseReleased(setRate);
+		  rslider.style('z-index','4');
+		  rslider.addClass('slider');
+
+
+  		pslider = createSlider(2., 400., 200.);
+  		pslider.position(100, 130);
+  		pslider.mouseReleased(setPitch);
+		  pslider.style('z-index','3');
+		  pslider.addClass('slider');
+
+		// labels:
+		label = createDiv("tonal type");
+		label.position(20, 20);
+		label.style('font-size','15px')
+		label.style('font-family', 'ant');
+		label.style('font-weight', 'bold');
+
+		label = createDiv("mark yoder");
+		label.position(20, 650);
+		label.style('font-size','15px')
+		label.style('font-family', 'ant');
+
+		label = createDiv("2021");
+		label.position(1530, 650);
+		label.style('font-size','15px')
+		label.style('font-family', 'ant');
+
+
+
+		label = createDiv("volume:");
+		label.position(20, 53);
+		label.style('font-size','15px')
+		label.style('font-family', 'ant');
+
+
+		label = createDiv("rate:");
+		label.position(20, 88);
+		label.style('font-size','15px')
+		label.style('font-family', 'ant');
+
+		label = createDiv("pitch:");
+
+		label.position(20, 123);
+		label.style('z-index','6');
+		label.style('font-family', 'ant');
+
+		label.style('font-size','15px')
+
+		  input.style('font-family', 'ant');
+		  input.style('font-stretch', '100%');
+		  input.style('font-weight', '100');
+
+
+		  myDiv2 = createDiv();
+		  myDiv2.style('z-index','2');
+		  myDiv2.position(0,0);
+
+
+		  input.parent(myDiv2);
+		  input.style('z-index','1');
+		  input.position(0,350);
+
+myDiv3 = createDiv('(' +(vslider.value()/100)+ ')');
+myDiv3.position(280,53);
+myDiv3.style('font-family', 'ant');
+myDiv3.style('font-size','15px')
+
+myDiv4 = createDiv(-1*(pslider.value())+950);
+myDiv4.position(280,88);
+myDiv4.style('font-family', 'ant');
+myDiv4.style('font-size','15px')
+
+myDiv5 = createDiv(-1*(rslider.value())+200);
+myDiv5.position(280,123);
+myDiv5.style('font-family', 'ant');
+myDiv5.style('font-size','15px')
+
+} 
+
+// change the text of the keys based on which key is pressed
+function cool () {
+    function disableSpellCheck() {
+        let selector = 'input[type=text], textarea';
+        let textFields = document.querySelectorAll(selector);
+
+        textFields.forEach(
+            function (field, _currentIndex, _listObj) {
+                field.spellcheck = false;
+            }
+        );
+    }
+
+    disableSpellCheck
+}
+// Set a random color for the circle
+function change() {
+  circleColor = color(random(255), random(255), random(255));
+}
+  		// say hello:
+
+	
+
+	function draw () {  
+
+		
+		
+
+		// myDiv2.style('transform','scaleX(' + 1/(rslider.value()/100 )+ ')');
+
+		input.style('transform','scale(' +(vslider.value()/6 )+ ')');
+		input.style('transform','scale(' +(vslider.value()/12 )+ ')');
+		variable = -2.3695*pslider.value()+952;
+		variable2 = -1*rslider.value()+200;
+		input.style('font-weight',variable);
+
+		input.style('font-stretch',variable2+ '%');
+
+
+		input.style('text-align','center');
+		myDiv2.style('text-align','center');
+
+		input.style('position','fixed');
+		myDiv2.style('position','fixed');
+
+		input.style('vertical-align','middle');
+		input.style('width','100%');
+		myDiv2.style('width','100%');
+
+		input.html(input.value());
+
+
+		
+		myDiv3.html(vslider.value()+'%');
+		myDiv4.html(rslider.value()+'%');
+
+		myDiv5.html(pslider.value()/2+'%');
+
+		
+
+
+
+
+
+
+	}
+
+	function setVolume()
+	{
+		myVoice.setVolume(vslider.value()/100.);
+
+
+
+	}
+	function setRate()
+	{
+		myVoice.setRate(rslider.value()/100.);
+	}
+	function setPitch()
+	{
+		myVoice.setPitch(pslider.value()/205.);
+	}
+
+
+	function doSpeak()
+	{
+		myVoice.speak(input.value());
+
+
+
+	}
+
+
+
+	
+
+</script>
+</head>
+<body>
+
+
+	<!-- <span class="stretched-text">("input.value")</span>
+<span>and this is some random<br />triple line <br />not stretched text</span> -->
+</body>
+</html>
