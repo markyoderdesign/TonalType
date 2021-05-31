@@ -9,3 +9,17 @@ canvas {
 
 }
 
+@font-face {
+  src: url('Antarctica Beta Trial-VF.ttf');
+  font-family:'ant';
+  font-style: normal;
+  font-stretch: 1% 500%; /* Required by Chrome */
+  font-weight: 100 950;
+}
+
+a {
+
+  font-family:'ant';
+}
+
+

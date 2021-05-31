@@ -67,10 +67,6 @@ p {
 
 
 }
-span {
-  font-size: 16px;
-  vertical-align: top;
-}
 	</style>
 
 	<script>
@@ -113,6 +109,7 @@ let variable2;
 		// input.style('background','transparent');
 		input.style('outline','none');
 		input.style('color','black')
+		input.style('font-size',windowWidth/100)
 
 		// 		  input.style('font-family', 'ant');
 		//   input.style('font-stretch', '100%');
@@ -178,16 +175,6 @@ let variable2;
 		label.style('font-size','15px')
 		label.style('font-family', 'ant');
 		label.style('font-weight', 'bold');
-
-		label = createDiv("mark yoder");
-		label.position(20, 650);
-		label.style('font-size','15px')
-		label.style('font-family', 'ant');
-
-		label = createDiv("2021");
-		label.position(1530, 650);
-		label.style('font-size','15px')
-		label.style('font-family', 'ant');
 
 
 
@@ -270,9 +257,8 @@ function change() {
 		
 
 		// myDiv2.style('transform','scaleX(' + 1/(rslider.value()/100 )+ ')');
-
-		input.style('transform','scale(' +(vslider.value()/6 )+ ')');
-		input.style('transform','scale(' +(vslider.value()/12 )+ ')');
+		input.style('font-size','2px');
+		input.style('transform','scale(' +((vslider.value()/3) )+ ')');
 		variable = -2.3695*pslider.value()+952;
 		variable2 = -1*rslider.value()+200;
 		input.style('font-weight',variable);
@@ -332,7 +318,9 @@ function change() {
 
 
 	}
-
+	function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
 
 
 	
@@ -342,7 +330,26 @@ function change() {
 <body>
 
 
+<div style="z-index:15;position:fixed;right:20px; bottom:15px;">
+<a>2021</a>
+</div>
+
+<div style="z-index:15;position:fixed;left:20px; bottom:15px;">
+	<a>mark yoder</a>
+	</div>
+	
+
 	<!-- <span class="stretched-text">("input.value")</span>
 <span>and this is some random<br />triple line <br />not stretched text</span> -->
 </body>
+
+
+<style>
+
+input {
+
+font-size: 5px;
+}
+
+</style>
 </html>
