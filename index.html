@@ -22,7 +22,7 @@
 
 .slider {
   -webkit-appearance: none;
-  width: 10%;
+  width: 155px;
   height: 1.5px;
 background: black;  outline: none;
 
@@ -175,19 +175,20 @@ let variable2;
 		label.style('font-size','15px')
 		label.style('font-family', 'ant');
 		label.style('font-weight', 'bold');
-
+		label.style('z-index','15');
 
 
 		label = createDiv("volume:");
 		label.position(20, 53);
 		label.style('font-size','15px')
 		label.style('font-family', 'ant');
-
+		label.style('z-index','15');
 
 		label = createDiv("rate:");
 		label.position(20, 88);
 		label.style('font-size','15px')
 		label.style('font-family', 'ant');
+		label.style('z-index','15');
 
 		label = createDiv("pitch:");
 
@@ -205,26 +206,30 @@ let variable2;
 		  myDiv2 = createDiv();
 		  myDiv2.style('z-index','2');
 		  myDiv2.position(0,0);
-
+		  myDiv2.style('font-size','300px');
+		  myDiv2.style('overflow','visible')
 
 		  input.parent(myDiv2);
 		  input.style('z-index','1');
-		  input.position(0,350);
+		  input.position(20,320);
 
 myDiv3 = createDiv('(' +(vslider.value()/100)+ ')');
 myDiv3.position(280,53);
 myDiv3.style('font-family', 'ant');
 myDiv3.style('font-size','15px')
+myDiv3.style('z-index','19');
 
 myDiv4 = createDiv(-1*(pslider.value())+950);
 myDiv4.position(280,88);
 myDiv4.style('font-family', 'ant');
 myDiv4.style('font-size','15px')
+myDiv4.style('z-index','20');
 
 myDiv5 = createDiv(-1*(rslider.value())+200);
 myDiv5.position(280,123);
 myDiv5.style('font-family', 'ant');
 myDiv5.style('font-size','15px')
+myDiv5.style('z-index','20');
 
 } 
 
@@ -257,22 +262,21 @@ function change() {
 		
 
 		// myDiv2.style('transform','scaleX(' + 1/(rslider.value()/100 )+ ')');
-		input.style('font-size','200pt');
-		input.style('transform','scale(' +((vslider.value()/150) )+ ')');
+		input.style('font-size','' +((vslider.value()) )+ '');
 		variable = -2.3695*pslider.value()+952;
 		variable2 = -1*rslider.value()+200;
 		input.style('font-weight',variable);
+		input.position(15,370-(vslider.value()*.7));
 
 		input.style('font-stretch',variable2+ '%');
 
 
-		input.style('text-align','center');
-		myDiv2.style('text-align','center');
+		input.style('text-align','left');
+		myDiv2.style('text-align','left');
 
 		input.style('position','fixed');
 		myDiv2.style('position','fixed');
 
-		input.style('vertical-align','middle');
 		input.style('width','100%');
 		myDiv2.style('width','100%');
 
